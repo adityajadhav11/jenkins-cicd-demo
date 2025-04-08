@@ -7,14 +7,17 @@ pipeline {
                 echo '🔧 Building the application...'
             }
         }
+
         stage('Test') {
             steps {
                 echo '✅ Running tests...'
             }
         }
+
         stage('Deploy') {
             steps {
-                echo '🚀 Deploying application using Docker...'
+                sh 'docker build -t my-python-app .'
+                sh 'docker run -d -p 5000:5000 --name python-app my-python-app'
             }
         }
     }
